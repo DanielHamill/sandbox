@@ -14,7 +14,7 @@ general
 testing stuff
 - https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/eae8cedf-d483-471f-8796-49f69baec6cf/lesson/c1002aef-471a-4249-b963-e3071fbbbdcb
 - https://kubernetes.io/docs/reference/kubectl/conventions/
-- https://kubernetes.io/docs/reference/kubectl/quick-reference/
+- https://kubernetes.io/docs/reference/kubectl/quick-referenc-e/
 - kubectl get pod -o yaml > pod-definition.yaml
     --o yaml, output yaml of resource definition
 - kubectl run pod --dry-run=client
@@ -199,3 +199,9 @@ spec:
         app: myapp
         type: back-end
 ```
+
+## commands and arguments ##
+- spec.containers[0].args
+    - overrides "CMD" instruction
+- spec.containers[0].command
+    - overrides "ENTRYPOINT" instruction

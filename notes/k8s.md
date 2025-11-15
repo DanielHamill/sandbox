@@ -11,7 +11,7 @@ general
 - kubectl scale --replicas=6 replicaset myapp-replicaset
 - kebectl [command] --namespace=[namespace]
 
-testing stuff
+imperative commands
 - https://learn.kodekloud.com/user/courses/certified-kubernetes-application-developer-ckad/module/eae8cedf-d483-471f-8796-49f69baec6cf/lesson/c1002aef-471a-4249-b963-e3071fbbbdcb
 - https://kubernetes.io/docs/reference/kubectl/conventions/
 - https://kubernetes.io/docs/reference/kubectl/quick-referenc-e/
@@ -21,10 +21,15 @@ testing stuff
 - kubectl run nginx --image=nginx --dry-run=client -o yaml
     - quickly get pod manifest file
 
+selecting fields
+- -o jsonpath='{.spec.containers[*].env}'
+
 config
 - kubectl config set-context $(kubectl config current-context) --namespace=dev
     --all-namespaces
 
+## come back later ##
+- encrypting secrets at rest
 
 ## pods ##
 ```yaml
@@ -201,7 +206,135 @@ spec:
 ```
 
 ## commands and arguments ##
-- spec.containers[0].args
-    - overrides "CMD" instruction
-- spec.containers[0].command
-    - overrides "ENTRYPOINT" instruction
+```yaml
+spec: 
+    containers: 
+    -   name: nginx-container
+        image: (nginx)
+        args: [arg1, arg2] # overrides 'CMD' instruction in dockerfile
+        command: [cmd1, cmd2] # overrides 'ENTRYPOINT' instruction in dockerfile
+```
+
+## env variables ##
+key-value
+```yaml
+spec: 
+    containers: 
+    -   ...
+        env:
+        -   name: APP_COLOR
+            value: pink
+```
+ConfigMap
+```yaml
+spec: 
+    containers: 
+    -   ...
+        env:
+        -   name: APP_COLOR
+            valueFrom:
+                configMapKeyRef:
+                    name: app-config
+                    key: APP_COLOR
+        # or
+        envFrom:
+            - configMapRef:
+                name: app-config
+        # or
+            - secretRef:
+                name: app-secret
+```
+
+creating configmap:
+- imperative:
+    - kubectl create configmap <config-name> \
+        --from-literal=<key>=<value>
+    - kubectl create configmap <config-name> \
+        --from-file=<path-to-file>
+
+kubectl create configmap webapp-config-map \
+        --from-literal=APP_COLOR=darkblue \
+        --from-literal=APP_OTHER=disregard
+
+- declarative
+```yaml
+apiVersion: v1 
+kind: ConfigMap
+metadata: 
+    name: app-config
+data:
+    KEY: val
+```
+
+Secrets
+```yaml
+spec: 
+    containers: 
+    -   ...
+        env:
+        -   name: APP_COLOR
+            valueFrom:
+                configMapKeyRef:
+```
+
+```yaml
+apiVersion: v1 
+kind: Secret
+metadata: 
+    name: app-secret
+data:
+    KEY: val
+```
+kubectl create secret generic app-secret \
+    --from-file=app_secret.properties
+
+kubectl create secret generic db-secret \
+    --from-literal=DB_Host=sql01 \
+    --from-literal=DB_User=root \
+    --from-literal=DB_Password=password123
+
+creating secrets
+-   echo -n 'secret' | base64 (--decode)
+
+as volume:
+```yaml
+volumes:
+-   name: app-secret-volume
+    secret:
+        secretName: app-secret
+```
+/opt/app-secret-volumes/secret
+
+## docker security ##
+- container and host share kernel
+- containers isolated used namespaces in linux (what does this mean?)
+- processes
+    - run on host but isolated using it's own namespace
+        - ps aux
+            - list processes, in docker can only see processes with it's namespace
+            - on host, will list container processes too
+- users
+    - by default, run processes as root user
+        - BUT: root user on container is limited, not really "root"
+    - docker run --user=1001 ubuntu sleep 3600
+    ```dockerfile
+        FROM ubuntu
+        USER 1000
+    ```
+
+## security contexts ##
+```yaml
+spec: # pod manifest
+    securityContext:
+        runAsUser: 1000
+    # or
+    containers:
+    -   name: ubuntu
+        image: ubuntu
+        command: ...
+        securityContext:
+            runAsUser: 1000
+            capabilities:
+                add: ["Mac_ADMIN"]
+
+```

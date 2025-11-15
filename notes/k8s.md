@@ -206,6 +206,7 @@ spec:
 ```
 
 ## commands and arguments ##
+<<<<<<< HEAD
 ```yaml
 spec: 
     containers: 
@@ -305,6 +306,14 @@ volumes:
 ```
 /opt/app-secret-volumes/secret
 
+=======
+- spec.containers[0].args
+    - overrides "CMD" instruction
+- spec.containers[0].command
+    - overrides "ENTRYPOINT" instruction
+
+
+
 ## docker security ##
 - container and host share kernel
 - containers isolated used namespaces in linux (what does this mean?)
@@ -336,5 +345,41 @@ spec: # pod manifest
             runAsUser: 1000
             capabilities:
                 add: ["Mac_ADMIN"]
+```
 
+users and stuff
+- kubectl exec ubuntu-sleeper -- whoami
+    - check user running in container
+
+
+## resources ##
+- every pod needs resources: cpu, memory
+- when pod placed on node, consumes resources from node
+- scheduler decides which pod node goes to
+    - considers amount of resources rquired and avail on nodes
+        - decides best node based on resources
+    - if none available, holds back scheduling pod - pending state
+        - check events: "insufficient cpu"
+
+requesting resources
+- resource requests: minimum cpu/mem request by container (pod?)
+    - 1cpu/1Gi
+- 1 cpu = 1 vcpu
+    - 1 cpu core/hyperthread, or AWS vCPU / GCP vCPU
+- G = Gigabyte = 1,000,000,000 bytes
+- Gi = Gibibyte = 1,073,..... bytes
+
+exceeding limits
+- cpu: cpu will be throttled
+- memory: terminate pod Out of Memory (OOM)
+
+```yaml
+spec: # pod manifest
+    resources:
+        requests: # minimum resources
+            memory: "4Gi"
+            cpu: 2
+        limits: # maximum resources
+            memory: "2Gi"
+            cpu: 2
 ```

@@ -383,3 +383,37 @@ spec: # pod manifest
             memory: "2Gi"
             cpu: 2
 ```
+
+limit range:
+```yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+    name: cpu-resource-constraint
+spec:
+    limits:
+    -   default:
+            cpu: 500m
+        defaultRequest:
+            cpu: 500m
+        max:
+            cpu: "1"
+        min:
+            cpu: 100m
+        type: Container
+```
+- only enforced when pod created
+
+resource quota:
+```yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+    name: my-resource-quota
+spec:
+    hard:
+        requests.cpu: 4
+        requests.memory: 4Gi
+        limit.cpu: 10
+        limits.memory: 10Gi
+```

@@ -206,7 +206,6 @@ spec:
 ```
 
 ## commands and arguments ##
-<<<<<<< HEAD
 ```yaml
 spec: 
     containers: 
@@ -416,4 +415,66 @@ spec:
         requests.memory: 4Gi
         limit.cpu: 10
         limits.memory: 10Gi
+
+## service accounts ##
+
+- allow software to interact with k8s cluster
+- my kubernetes dashboard
+    - retrieve list of pods, using k8s api
+    - application needs to be authenticated, using service account
+    - identity of service: assocaiated with a token
+        - used to auth sa to api
+        - "barcode" associated with id
+- "default": default service account
+    - k describe pod my-pod
+        - Service Account field
+- mounted as projected volume
+    - dynamic directory created inside the pod
+    - /var/run/secrest/kubernetes.io/serviceaccount
+
+```yaml
+apiVersion: v1 
+kind: ServiceAccount
+metadata: 
+    name: dashbaord-sa
+    namespace: default
+automountServiceAccountToken: false
+```
+
+```yaml
+spec: # pod manifest
+    containers:
+    - ...
+    serviceAccountName: dashboard-sa
+```
+
+tokens outside of cluster
+- k create token dashboard-sa --duration 2h
+    - prints token text, valid for one hour default
+- call k8s api using token:
+    - curl https://192...:6443/api -insecure
+        --header "Authorization: bearer eyJhbG..."
+
+
+## taints and tolerations ##
+
+- taint: "bugspray" prevent pods from being deployed on node
+- toleration: enable certain pods to be tolerant to taints
+- k taint nodes node-name key=value:taint-effect
+    - taint-effects:
+        - NoSchedule
+        - PreferNoSchedule
+        - NoExecute
+            - existing pods will be evicted if they do not conform to taint
+- does NOT tell pod to go to particular node, just tell nodes to accept certain pods
+- k describe node kubemaster | grep Taint
+```yaml
+spec: # pod manifest
+    containers:
+    - ...
+    tolerations:
+    -   key: "app"
+        operator: "Equal"
+        value: "blue"
+        effect: "NoSchedule" ### ------ must all be double quotes... idk why
 ```

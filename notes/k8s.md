@@ -1,3 +1,6 @@
+# ============ General Stuff ============= 
+
+
 ## important commands ##
 general
 - kubectl create [type] name
@@ -478,3 +481,60 @@ spec: # pod manifest
         value: "blue"
         effect: "NoSchedule" ### ------ must all be double quotes... idk why
 ```
+
+## Node selectors and node affinity ##
+
+- "bigger" pod to node with more resoures
+- set limitations on pods so they run on the right node
+
+nodeSelector
+```yaml
+spec: # pod manifest
+    containers:
+    ...
+    nodeSelector:
+        size: Large # labels assigned to nodes
+```
+- k label nodes <node-name> <label-key>=<label-value>
+
+affinity
+```yaml
+spec: # pod manifest
+    containers:
+    ...
+    affinity:
+        nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            # or: preferredDuringSchedulingIgnoredDuringExecution
+                nodeSelectorTerms:
+                -   matchEspressions:
+                    -   key: size
+                        operator: In # NotIn, Exists
+                        values:
+                        -   Large
+```
+- during scheduling:
+    - required: if not found, will not schedule pod
+
+# ============ Design Patterns ============= 
+
+## multi-container pods ##
+
+co-located containers
+- 2 services dependant on each other
+- both in one pod, meant to continue running during whole pod lifecycle
+
+regular init container
+- one wait for init steps to be done before running
+- i.e. one wait for database to be ready
+
+sidecar container
+- sidecar performs init, but then keeps running 
+
+
+## labels and selectors
+- k get pods --selector app=App1
+
+annotations
+- labels used to group/select objects
+- annotations used to record details for info purposes

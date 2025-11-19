@@ -56,7 +56,7 @@ images
 </html>
 ```
 
-## css ##
+## css Basics ##
 
 single rule/ruleset:
 div - selector {
@@ -91,4 +91,104 @@ span{
 - margin will only be added to left and right on span
 ```
 
-https://www.youtube.com/watch?v=FHZn6706e3Q&list=PL4cUxeGkcC9ivBf_eKCPIAYXWzLlPAm6G&index=5
+- selectors:
+    - <p class="error success">
+        - .error{}: select all "error" classes
+        - p.error{}: select all p tag with error class
+        - p.error.success{}: must have both error and success classes
+    - ids:
+        - #content{}: target content id
+        - div#content{}: target content in divs
+        - id can only be unique on each page
+    - descendent selectors:
+        - div p a{}: target a inside p inside div
+        - div .error{}: target .error class inside a div
+    - attribute selectors:
+        - a[href]{}: all href inside an ankor tag
+        - a[href="mylink"]{}: all href inside ankor with "mylink"
+        - a[href*="li"]{} - "li" included in href value
+        - a[href$=".com"]{} - ends with .com
+
+- cascade
+    - default:
+        - <div> <p> hi </P> </div>
+        - div{color:red;} ----- p also red
+    - inherit
+        ```
+        div{
+            margin: 40px;
+        }
+        p {
+            border: inherit;
+            margin: inherit;
+        } --- look at parent of p tag for border/margin
+        ```
+    - overridding parents:
+        - more specific selector used
+            div p{} more specific than p{}
+        - top to bottom, further down takes precedence 
+
+## Semantics ##
+semantic tags
+- semantically sparate section of website
+- by default divs don't know anything about their contents
+
+```html
+<body>
+
+    <header>
+        <h1>Marioclub</h1>
+    </header>
+
+    <section class="banner">
+        <img serc="img/banner.png" alt="marioclub weclonme banner">
+        <div class = "welcome">
+            <h2>Welcome to <br><span>Marioclub</span></h2>
+        </div>
+    </section>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="/join.html" class="join">Join the club</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <article>
+            <h2>it's a me, mario</h2>
+        </article>
+    </main>
+</body>
+```
+
+## Chrome DevTool ##
+- general
+    - top right "arrow" button: hover over and inspect all elements on page
+- inspect html
+    - get specific selector for element: right click > copy > copy selector
+    - add text on the fly: click in elements
+    - hide element: right click > hide element
+    - find specific element: right click (on actual page)> inspect
+- styles
+    - element.styles: play around with syles of specific element
+
+## CSS position and layout ##
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;           /* full height viewport */
+        display: flex;
+        justify-content: center; /* center horizontally */
+        align-items: center;      /* center vertically */
+    }
+
+    .square {
+        width: 150px;
+        height: 150px;
+        background: red;
+        position: relative;
+    }
+</style>
+
+<div class="square"></div>

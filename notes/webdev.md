@@ -192,3 +192,17 @@ semantic tags
 </style>
 
 <div class="square"></div>
+
+## CSS Layout and Position ##
+
+- static
+    - regular document flow
+- relative
+    - position relative to original position
+    - shift pixels/percent left, right, etc.
+- fixed
+    - fixed position on screen
+- absolute
+    - fixed in relation to parent
+
+https://www.youtube.com/watch?v=XQaHAAXIVg8&list=PL4cUxeGkcC9ivBf_eKCPIAYXWzLlPAm6G&index=8

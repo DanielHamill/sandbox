@@ -96,3 +96,5 @@ ETL - extract, transform, load
 
 feature stores
 - data lakes: allows data is accessible in realtime with low latency 
+
+3f7b246f91a91762841aea22ce46f76e3ed8bf15

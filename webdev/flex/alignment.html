@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>flex test</title>
+  <style>
+
+    p {
+        margin-left: 10px;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .container {
+        border: 2px solid black;
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+    .flex1 {
+      height: 175px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .flex2 {
+      height: 175px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .flex3 {
+      height: 175px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flex4 {
+      height: 175px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .flex_item {
+      background-color: lightcoral;
+      border: 2px solid red;
+      /* flex: 1 1 auto; */
+      margin: 5px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+      width: 150px;
+    }
+
+  </style>
+</head>
+
+<body>
+    <p>justify-content aligns accross main axis:</p>
+    <div class="container">
+        <p>justify-content: space-between</p>
+        <div class="flex1">
+            <div class="flex_item">Item 1</div>
+            <div class="flex_item">Item 2</div>
+            <div class="flex_item">Item 3</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <p>justify-content: center</p>
+        <div class="flex2">
+            <div class="flex_item">Item 1</div>
+            <div class="flex_item">Item 2</div>
+            <div class="flex_item">Item 3</div>
+        </div>
+    </div>
+
+    <p>align-items aligns accross cross axis:</p>
+    <div class="container">
+        <p>align-items: center</p>
+        <div class="flex3">
+            <div class="flex_item">Item 1</div>
+            <div class="flex_item">Item 2</div>
+            <div class="flex_item">Item 3</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <p>align-items: flex-end</p>
+        <p>gap: 10px</p>
+        <div class="flex4">
+            <div class="flex_item">Item 1</div>
+            <div class="flex_item">Item 2</div>
+            <div class="flex_item">Item 3</div>
+        </div>
+    </div>
+
+
+    
+
+</body>
+</html>

@@ -204,5 +204,8 @@ semantic tags
     - fixed position on screen
 - absolute
     - fixed in relation to parent
+    - does NOT work with static parents
 
-https://www.youtube.com/watch?v=XQaHAAXIVg8&list=PL4cUxeGkcC9ivBf_eKCPIAYXWzLlPAm6G&index=8
+
+## pseudo classes ## 
+

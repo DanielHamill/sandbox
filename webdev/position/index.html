@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Centered Red Square</title>
+  <style>
+    /* body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+
+    div{
+      text-align: right;
+    }
+
+    .space {
+      height: 150px;
+    }
+
+    .divstatic {
+      position: static;
+      width: 300px;
+      height: 300px;
+      background: rgb(76, 0, 255);
+    }
+
+    .divrelative {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      background: rgb(0, 255, 85);
+      left: 500px;
+      z-index: 1;
+    }
+
+    .divfixed {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: rgb(221, 34, 190);
+    }
+
+    .divabsolute {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgb(238, 255, 0);
+      /* margin-left: 20%; */
+      top: 0px;
+    }
+
+    .square {
+      width: 100%;
+      height: 5000px;
+      background: red;
+    }
+
+    .p {
+      font-size: 500px;
+    }
+
+    .divrelative .divabsolute{
+      bottom: 0px;
+      top: unset;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="square">
+    <div class="space"></div>
+    <div class="divstatic">
+      <p>static</p>
+      
+    </div>
+
+    <div class="divfixed">
+      <p>fixed</p>
+      <div class="divabsolute">
+        <p>absolute</p>
+      </div>  
+    </div>
+
+    <div class="divrelative">
+      <p>relative</p>
+      <div class="divabsolute">
+        <p>absolute</p>
+      </div>
+    </div>  
+    
+      
+  </div>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">

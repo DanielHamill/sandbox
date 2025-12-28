@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Pix-Canvas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="fonts.googleapis.com" rel="stylesheet">
+	<link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="controls">
+        <label for="size">Grid Size</label>
+        <input type="range" id="size" name="size" min="0" max="20" step="1" value="10">
+        <span id="currentSize">10</span>
+        <button id="download">Download Me</button>
+    </div>
+    <div class="container">
+    </div>
+</body>
+</html>

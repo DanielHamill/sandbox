@@ -1,0 +1,74 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    /* height: 80vh; */
+    /* border: solid black 2px; */
+    gap: 10px;
+    align-items: center;
+    padding: 50px;
+}
+
+.score-board, .computer, .player {
+    background-color: lightgray;
+    
+    margin: 10px;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px gray;
+    padding: 20px;
+}
+
+.score-board h2, .score-board p, .computer h2, .computer p {
+    margin: 0px;
+}
+
+/* .computer {
+    
+} */
+
+.player, .computer{
+    width: 400px;
+}
+
+.choices {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    /* margin: 20px; */
+}
+
+.choice, .confirm-button {
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.choice {
+    flex: 1 1 auto;
+    padding: 30px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.confirm-button {
+    padding: 15px 30px;
+
+}
+
+.player, .computer {
+    text-align: center;
+}
+
+.player div {
+    margin-bottom: 20px;
+}
+
+.player div *{
+    margin: 0px;
+}
+
+.confirm-button {
+    width: 100%;
+    /* margin: 20px; */
+    box-sizing: border-box;
+    margin: 20px 0;
+}

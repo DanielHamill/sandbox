@@ -1,0 +1,17 @@
+#root {
+  /* max-width: 1280px; */
+  /* margin: 0 auto; */
+  padding: 0000.1rem;
+  text-align: center;
+  background-color: rgb(233, 233, 233);
+  height: 100vh;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  max-width: 66vw;
+  margin: 0 auto;
+  padding: 20px;
+}

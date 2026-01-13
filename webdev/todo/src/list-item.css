@@ -6,3 +6,8 @@ hr {
   background-color:grey;
   height: 1px;
 }
+
+#app div div {
+  display: flex;
+  align-items: center;
+}

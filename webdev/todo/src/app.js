@@ -1,4 +1,5 @@
 import { ListItem, listDOMElement } from "./list-item";
+import "./app.css"
 
 const app = document.querySelector("#app");
 const itemsContainer = document.createElement("div")
@@ -12,6 +13,9 @@ function renderList() {
         itemsContainer.appendChild(
             listDOMElement(todoList[i])
         )
+        if (i < todoList.length - 1) {
+            itemsContainer.appendChild(document.createElement("hr"));
+        }
     }
 }
 

@@ -33,6 +33,8 @@ export default function TodoItem(props) {
     const [ timeLeft, setTimeLeft ] = useState("")
 
     useEffect(() => {
+        const diff = new Date(props.dueDate) - Date.now()
+        setTimeLeft(formatTimeFromMilliseconds(diff))
         const key = setInterval(() => {
             const diff = new Date(props.dueDate) - Date.now()
             setTimeLeft(formatTimeFromMilliseconds(diff))
@@ -72,7 +74,7 @@ export default function TodoItem(props) {
             <div>
                 {props.dueDate && props.dueDate !== "" && (
                     <div className="dueDateBadge">
-                        {timeLeft}
+                        <h3>Time left: {timeLeft}</h3>
                     </div>
                 )}
             </div>

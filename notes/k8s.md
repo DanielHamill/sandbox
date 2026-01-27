@@ -538,3 +538,101 @@ sidecar container
 annotations
 - labels used to group/select objects
 - annotations used to record details for info purposes
+
+
+# ============== Networking =================
+
+## network policy
+- only allow traffic to/from certain service from another service
+- `network polic`
+    - link netowkr policy to one or more pod
+    - "only allow ingress from api pod on port 3306"
+    - link to pods using labels and selectors
+
+
+## Ingress Networking
+
+ingress controller
+- not just load balancer, additional intelligence to monitor cluster for new ingress resources and update nginx (or whatever) config
+
+Ingress controller deployment:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: nginx-ingress-controller
+    namespace: ingress-nginx
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: nginx-ingress
+    template:
+        metadata:
+            labels:
+                app: nginx-ingress
+        spec:
+            containers:
+            - name: nginx-ingress-controller
+                image: quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.21.0
+                args:
+                    - /nginx-ingress-controller
+                    - --configmap=$(POD_NAMESPACE)/nginx-configuration
+                env:
+                    - name: POD_NAME
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: metadata.name
+                    - name: POD_NAMESPACE
+                        valueFrom:
+                            fieldRef:
+                                fieldPath: metadata.namespace
+                ports:
+                    - name: http
+                        containerPort: 80
+                    - name: https
+                        containerPort: 443
+```
+
+Service:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+    name: nginx-ingress
+    namespace: ingress-nginx
+spec:
+    type: NodePort
+    ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+    - port: 443
+      targetPort: 443
+      protocol: TCP
+      name: https
+    selector:
+        app: nginx-ingress
+```
+
+ConfigMap:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: nginx-configuration
+```
+
+Auth:
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+    name: nginx-ingress-serviceaccount
+    namespace: ingress-nginx
+```

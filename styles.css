@@ -1,0 +1,59 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 25px;
+    font-weight: 550;
+    font-size: 20px;
+    align-items: center;
+}
+
+input {
+    width: 200px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    outline: 1px solid black;
+    max-height: 80vh;
+    min-height: 30vh;
+    aspect-ratio: 1 / 1;
+    margin: auto;
+}
+
+.row {
+    display: flex;
+}
+
+.col {
+    outline: 0.5px solid rgb(168, 168, 168);
+}
+
+.col:hover {
+    background-color: grey;
+}
+
+.selected {
+    background-color: black;
+    outline: 1px solid black;
+}
+
+#download {
+    border-radius: 6px;
+    font-size: 20px;
+    margin-left: 40px;
+    padding: 5px 10px;
+}
+
+#colorPicker {
+    width: 60px;
+    height: 40px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+}

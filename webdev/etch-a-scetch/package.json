@@ -6,7 +6,7 @@
   "author": "Daniel Hamiill (danielhamill00@gmail.com)",
   "type": "commonjs",
   "main": "index.js",
-  "homepage": "https://danielhamill.github.io/pixel-canvas/",
+  "homepage": "https://danielhamill.github.io/sandbox/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "gh-pages -d ."

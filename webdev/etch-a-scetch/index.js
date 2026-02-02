@@ -1,8 +1,10 @@
 const container = document.querySelector(".container");
 const slider = document.querySelector("#size");
 const download = document.querySelector("#download");
+const colorPicker = document.querySelector("#colorPicker");
 
 let isMouseDown = false;
+let currentColor = "#000000";
 
 document.addEventListener('mousedown', function() {
     isMouseDown = true;
@@ -19,6 +21,10 @@ slider.oninput = (e) => {
     resize_board(gridSize, gridSize);
     const currentSize = document.querySelector("#currentSize");
     currentSize.textContent = gridSize
+}
+
+colorPicker.oninput = (e) => {
+    currentColor = e.target.value;
 }
 
 download.onclick = (e) => {
@@ -47,13 +53,13 @@ function resize_board(rows, cols) {
             col_element.classList.add("col");
             col_element.style.width = `${1/cols*100}%`;
             col_element.onmousedown = () => {
-                col_element.style.backgroundColor = "black"
-                col_element.style.outline = "1px solid black"
+                col_element.style.backgroundColor = currentColor
+                col_element.style.outline = `1px solid ${currentColor}`
             }
             col_element.onmouseenter = () => {
                 if(isMouseDown) {
-                    col_element.style.backgroundColor = "black"
-                    col_element.style.outline = "1px solid black"
+                    col_element.style.backgroundColor = currentColor
+                    col_element.style.outline = `1px solid ${currentColor}`
                 }
             }
             row_element.appendChild(col_element);

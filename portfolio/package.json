@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && docker build -t portfolio:$(date +%Y%m%d-%H%M%S) -t portfolio:latest . && docker push your-registry.com/portfolio:$(date +%Y%m%d-%H%M%S) && docker push your-registry.com/portfolio:latest",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -22,6 +22,13 @@ function Projects() {
       description: "I made and hosted this website myself!",
       technologies: ["TypeScript", "React", "Radix UI"],
       url: ""
+    },
+    {
+      id: 4,
+      title: "Resume Customizer",
+      description: "Generate custom resumes on the fly.",
+      technologies: ["Python", "Templating", "LaTeX"],
+      url: "https://github.com/DanielHamill/resume-customizer"
     }
   ];
 

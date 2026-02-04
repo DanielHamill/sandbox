@@ -26,7 +26,7 @@ try {
 
   // Build Docker image with timestamp and latest tags
   console.log('Building Docker image...');
-  execSync(`docker build -t ${imageTag} -t ${latestTag} .`, { stdio: 'inherit' });
+  execSync(`docker buildx build --platform linux/amd64 -t ${imageTag} -t ${latestTag} .`, { stdio: 'inherit' });
 
   // Push timestamped image
   console.log(`Pushing ${imageTag}...`);

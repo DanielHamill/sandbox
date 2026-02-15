@@ -460,3 +460,19 @@ def pop(self):
             break
     return res
 ```
+
+## hashing
+
+- "unique", "count", "frequency": use hashmap
+- hash function:
+  - convert key ("alice") to sequence of ints using asci
+    - "Alice" -> 65, 108, ..., ...
+  - add them together
+    - 65 + 108 + ... = 324..
+  - modulo
+    - 324 % size_of_memory = 200
+  - map value to 200 in memory
+
+collisions
+- chaining, use linked list for all pairs in same spot
+- 

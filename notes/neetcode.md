@@ -477,6 +477,70 @@ collisions
 - chaining, use linked list for all pairs in same spot
 
 
+## graphs
+
+```python
+grid = [[0, 0, 0, 0],
+        [1, 1, 0, 0],
+        [0, 0, 0, 1],
+        [0, 1, 0, 0]]
+
+adjMatrix = [[0, 0, 0, 0],
+             [1, 1, 0, 0],
+             [0, 0, 0, 1],
+             [0, 1, 0, 0]]
+```
+
+depth first search
+```python
+def dfs(grid, r, c, visit):
+    ROWS, COLS = len(grid), len(grid[0])
+    if (min(r, c) < 0 or
+        r == ROWS or c == COLS or
+        (r, c) in visit or grid[r][c] == 1):
+        return 0
+    if r == ROWS - 1 and c == COLS - 1:
+        return 1
+
+    visit.add((r, c))
+
+    count = 0
+    count += dfs(grid, r + 1, c, visit)
+    count += dfs(grid, r - 1, c, visit)
+    count += dfs(grid, r, c + 1, visit)
+    count += dfs(grid, r, c - 1, visit)
+
+    visit.remove((r, c))
+    return count
+```
+
+breadth first search
+```python
+def bfs(grid):
+    ROWS, COLS = len(grid), len(grid[0])
+    visit = set()
+    queue = deque()
+    queue.append((0, 0))
+    visit.add((0, 0))
+    length = 0
+    while queue:
+        for i in range(len(queue)):
+            r, c = queue.popleft()
+            if r == ROWS - 1 and c == COLS - 1:
+                return length
+
+            neighbors = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+            for dr, dc in neighbors:
+                if (min(r + dr, c + dc) < 0 or
+                    r + dr == ROWS or c + dc == COLS or
+                    (r + dr, c + dc) in visit or grid[r + dr][c + dc] == 1):
+                    continue
+                queue.append((r + dr, c + dc))
+                visit.add((r + dr, c + dc))
+        length += 1
+```
+
+
 # advnaced algorithms
 
 ## Arrays
@@ -593,3 +657,171 @@ def shortestSubarray(nums, target):
             L += 1
     return 0 if length == float("inf") else length
 ```
+
+### two pointers
+
+example: is_palendrome
+- can stop once L==R
+
+```python
+def isPalindrome(word):
+    L, R = 0, len(word) - 1
+    while L < R:
+        if word[L] != word[R]:
+            return False
+        L += 1
+        R -= 1
+    return True
+```
+
+example: given sorted input aray, find two indices of two elements that sum up to target value. exactly one solution
+
+algorithm
+- if sum < target, increment L
+- if sum > target, decrement R
+
+```python
+def targetSum(nums, target):
+    L, R = 0, len(nums) - 1
+    while L < R:
+        if nums[L] + nums[R] > target:
+            R -= 1
+        elif nums[L] + nums[R] < target:
+            L += 1
+        else:
+            return [L, R]
+```
+
+### prefix sum
+
+prefix: any contiguous subarray that starts at the beginning
+- add element to sum/prod as you increment along array
+- can find sum of middle sub array
+  - subtract prefix sum at one point with prefix and point before to get sum between both points
+  - **EDGE CASE** if range sum start from 0, there is no L-1 index, so sit it to zero
+
+```python
+class PrefixSum:
+
+    def __init__(self, nums):
+        self.prefix = []
+        total = 0
+        for n in nums:
+            total += n
+            self.prefix.append(total)
+
+    def rangeSum(self, left, right):
+        preRight = self.prefix[right]
+        preLeft = self.prefix[left - 1] if left > 0 else 0
+        return (preRight - preLeft)
+```
+
+## linked lists
+
+example: find middle of linked list
+
+algorithm
+- 2 pointer, fast increment by two, slow increment by one
+- when fast reach end, slow at midpoint
+
+```python
+def middleOfList(head):
+    slow, fast = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+    return slow
+```
+
+example: find cycle in linked list
+- easy: hash set
+  - uses O(n) memory
+- better: 2 pointers
+  - if slow and fast pointers at same node
+  - will always intersect eventually if cycle
+
+```python
+def hasCycle(head):
+    slow, fast = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            return True
+    return False
+```
+
+example: find start of cycle
+
+```python 
+def cycleStart(head):
+    slow, fast = head, head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            break
+
+    if not fast or not fast.next:
+        return None
+    
+    slow2 = head
+    while slow != slow2:
+        slow = slow.next
+        slow2 = slow2.next
+    return slow
+```
+
+## trees
+
+### trie
+
+- O(1) for insert, search, search prefix
+- prefix tree
+- tree of characters
+- hashmap for every letter/node
+- leaf node bool word=True
+
+```python
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.word = False
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word):
+        curr = self.root
+        for c in word:
+            if c not in curr.children:
+                curr.children[c] = TrieNode()
+            curr = curr.children[c]
+        curr.word = True
+
+    def search(self, word):
+        curr = self.root
+        for c in word:
+            if c not in curr.children:
+                return False
+            curr = curr.children[c]
+        return curr.word
+
+    def startsWith(self, prefix):
+        curr = self.root
+        for c in prefix:
+            if c not in curr.children:
+                return False
+            curr = curr.children[c]
+        return True
+```
+
+### union-find
+- detect disjoint sets
+- cycle detection
+
+
+### segment tree
+- udpate and query in logn time
+  - previously in array update in O(1) time

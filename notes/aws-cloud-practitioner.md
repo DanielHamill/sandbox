@@ -208,3 +208,42 @@ Data backups
 - know how to id appropriote migration strategies, database replication, aws snowball, etc.
 - understand cost storage options for aws storage services
   - example: s3 glacier lowest cost s3 storage option
+
+### Lesson 5: Concepts of cloud economics
+- shift technical resources away from on prem infra management
+- lower costs because of economies of scale
+- stop paying for data centers, and just what you use
+  - technical resources freed up, prioritize other activies
+  - more efficient apps
+  - end user experience
+  - streamline operations, more reveneue
+
+for exam:
+- how to operate in aws partially/fully
+  - either affect operational costs
+
+Total cost of ownership (TCO)
+- operational expensees
+  - day to day expenses
+- capital expenses
+  - costs assocated with long term benefits: buildings, servers, etc
+  - expected to spend once
+- labor costs
+  - engineers handling on prem environment, staffing, troublshooting/mngment
+- software licensing
+  - licenses currently using might be affected
+  - can forgo license in favor for one used by aws?
+
+- which applications are more economical on aws?
+- automation: important and can reduce costs
+  - cost savings to scaling horiontally vs on prem at peak capacity
+- data segmentaiton, targeted reporting, reduce scope of compliance, save time during audits
+- how strongly managed service dreduce tehcnical workloads and costs for use cases
+- dive deeper into:
+  - right sizing
+  - adding automation
+  - ensurin compliance met
+  - reduce scope
+  - use managed services
+  - all covered by aws well architected framework
+- trading capitalized expenses for variable expenses
